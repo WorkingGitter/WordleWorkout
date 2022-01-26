@@ -21,9 +21,21 @@
     <ClCompile Include="ConsoleIO.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="WordleGame.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ConsoleIO.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="wordledictionary.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="wordleboard.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WordleGame.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
