@@ -60,7 +60,7 @@ public:
 	*			in a solved state.
 	*/
 	bool is_solved() {
-		return test_word();
+		return m_is_solved;
 	}
 
 	/*!	@brief Indicates if the game is still in play
@@ -71,7 +71,7 @@ public:
 		if (m_tries >= m_tries_count)
 			return true;
 
-		return false;
+		return is_solved();
 	}
 
 	/*!	@brief resets the game state with a new word
@@ -81,6 +81,8 @@ public:
 	}
 
 	/*!	@brief sets the next word guess
+	*	
+	*	@param aWord a 6 letter word
 	*	@return true, if word is valid and accepted (but may not be correct).
 	*			false, if the word is invalid for whatever reason.
 	*/
@@ -99,6 +101,10 @@ protected:
 	*/
 	int m_tries;
 
+	/*!	@brief 
+	*/
+	bool m_is_solved;
+
 	/*!	@brief array structure that will hold words
 	*/
 	std::vector< std::vector<WORDLECHAR> > m_board;
@@ -108,15 +114,5 @@ protected:
 	/*!	@brief resets the internal variables and board state
 	*/
 	void reset();
-
-	/*!	@brief Returns true if the word indicated is correct
-	*	
-	*	@param word_index	Index of the word in our board array.
-	*						-1 will default to the last tried word.
-	*						Must be between 0 and @c m_tries_count.
-	*	@return True if the word at the index matches the dictionary
-	*			selection.
-	*/
-	bool test_word(int word_index = -1);
 };
 
