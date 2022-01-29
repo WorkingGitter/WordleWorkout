@@ -8,4 +8,4 @@ This project is meant to be a programming exercise in recreating the essence of 
 
 # # Display
 
-![](\assets\2022-01-29-15-27-58-image.png)
+![](/assets/2022-01-29-15-27-58-image.png)
