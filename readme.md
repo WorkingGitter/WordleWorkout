@@ -6,27 +6,6 @@ A simple Windows console Wordle clone
 
 This project is meant to be a programming exercise in recreating the essence of that game.
 
-# Visual Design Plan
+# # Display
 
-Sketch of what the final text-based UI shoudl look like:
-
-```
-Wordle Workout (v0.1)
-=====================
-Word of the day
----------------
-
-  _ _ _ _ _
-  _ _ _ _ _
-  _ _ _ _ _
-  _ _ _ _ _
-  _ _ _ _ _
-  _ _ _ _ _
-
-
-Q W E R T Y U I O P
- A S D F G H J K L
-  Z X C V B N M
-
-Guess: _ _ _ _ _
-```
+![](C:\dev\WordleWorkout\assets\2022-01-29-15-27-58-image.png)
