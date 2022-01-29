@@ -9,6 +9,9 @@
 #include <cctype>
 #include <string>
 #include <exception>
+#include <memory>
+#include <vector>
+#include "wordledictionary.h"
 
 /*!	@brief stores the guess state of a character
 */
@@ -50,36 +53,70 @@ class WordleGame
 public:
 
 	// TODO: Initialise with the word dictionary manager
-	WordleGame();
+	WordleGame(std::unique_ptr<WordleDic> dictionary);
 
 	/*!	@brief returns true, if the board is solved.
 	*	@return true, if the current state of the board is
 	*			in a solved state.
 	*/
 	bool is_solved() {
-		return false;
+		return test_word();
 	}
 
 	/*!	@brief Indicates if the game is still in play
 	*/
 	bool is_finished() {
+		
+		// we have exceeded our tries
+		if (m_tries >= m_tries_count)
+			return true;
+
 		return false;
 	}
 
 	/*!	@brief resets the game state with a new word
 	*/
 	void start_new_game() {
-		throw std::exception("NOT IMPLEMENTED");
+		reset();
 	}
 
 	/*!	@brief sets the next word guess
 	*	@return true, if word is valid and accepted (but may not be correct).
 	*			false, if the word is invalid for whatever reason.
 	*/
-	bool submit_next_guess(std::string aWord) {
-		throw std::exception("NOT IMPLEMENTED");
-	}
+	bool submit_next_guess(std::string aWord);
 
 protected:
+
+	static const int m_word_size = 5;
+	static const int m_tries_count = 6;
+
+	/*!	@brief Dictionary manager
+	*/
+	std::unique_ptr<WordleDic> m_dicptr;
+
+	/*!	@brief try attempt counter
+	*/
+	int m_tries;
+
+	/*!	@brief array structure that will hold words
+	*/
+	std::vector< std::vector<WORDLECHAR> > m_board;
+
+protected:
+
+	/*!	@brief resets the internal variables and board state
+	*/
+	void reset();
+
+	/*!	@brief Returns true if the word indicated is correct
+	*	
+	*	@param word_index	Index of the word in our board array.
+	*						-1 will default to the last tried word.
+	*						Must be between 0 and @c m_tries_count.
+	*	@return True if the word at the index matches the dictionary
+	*			selection.
+	*/
+	bool test_word(int word_index = -1);
 };
 
