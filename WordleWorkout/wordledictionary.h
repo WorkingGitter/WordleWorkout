@@ -14,7 +14,7 @@ public:
 	*	TODO
 	*/
 	std::string get_star_word() {
-		return "Stear";
+		return "could";
 	}
 
 protected:

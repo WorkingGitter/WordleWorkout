@@ -32,7 +32,7 @@
     <ClInclude Include="wordledictionary.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="wordleboard.h">
+    <ClInclude Include="wordleDisplay.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="WordleGame.h">

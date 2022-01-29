@@ -11,6 +11,7 @@
 #include <exception>
 #include <memory>
 #include <vector>
+#include <map>
 #include "wordledictionary.h"
 
 /*!	@brief stores the guess state of a character
@@ -59,13 +60,13 @@ public:
 	*	@return true, if the current state of the board is
 	*			in a solved state.
 	*/
-	bool is_solved() {
+	bool is_solved() const {
 		return m_is_solved;
 	}
 
 	/*!	@brief Indicates if the game is still in play
 	*/
-	bool is_finished() {
+	bool is_finished() const {
 		
 		// we have exceeded our tries
 		if (m_tries >= m_tries_count)
@@ -88,6 +89,18 @@ public:
 	*/
 	bool submit_next_guess(std::string aWord);
 
+	WORDLECHARSTATE get_state_of_character(const char c) const {
+		auto it = m_charstatemap.find(std::toupper(c));
+		if (it == m_charstatemap.end())
+			return WORDLECHARSTATE::none;
+
+		return it->second;
+	}
+
+	const std::vector< std::vector<WORDLECHAR> >& get_board() const {
+		return m_board;
+	}
+
 protected:
 
 	static const int m_word_size = 5;
@@ -108,6 +121,10 @@ protected:
 	/*!	@brief array structure that will hold words
 	*/
 	std::vector< std::vector<WORDLECHAR> > m_board;
+
+	/*!	@brief stores the character state for current game play
+	*/
+	std::map<char, WORDLECHARSTATE> m_charstatemap;
 
 protected:
 

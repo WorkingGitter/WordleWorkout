@@ -6,6 +6,7 @@
 #include <string>
 #include "ConsoleIO.h"
 #include "wordlegame.h"
+#include "wordleDisplay.h"
 
 
 #define WW_VERSION  "0.1 Alpha"
@@ -16,6 +17,9 @@ int main()
 	auto dic = std::make_unique<WordleDic>();
 	WordleGame game(std::move(dic));
 
+	// UI
+	WordleDisplay display;
+
 	// start a new board
 	game.start_new_game();
 
@@ -24,12 +28,11 @@ int main()
 	while (!game.is_finished()) {
 
 		// draw layout
-		std::cout << "Guess " << ++c << " : ";
+		display.Draw(game);
 
 		// input
 		std::string guess_string("");
 		std::getline(std::cin, guess_string);
-
 		if ((guess_string == "Q") || (guess_string == "q"))
 			break;
 
@@ -37,13 +40,10 @@ int main()
 		bool accepted = game.submit_next_guess(guess_string);
 
 		if (!accepted) {
-			std::cerr << "Invalid word guess. Please try again";
+			// std::cerr << "Invalid word guess. Please try again";
 		}
-
 	}
 
-	if (game.is_solved())
-		std::cout << "Correct!\n";
-	else
-		std::cout << "Word not found\n";
+	display.Draw(game);
+	std::cin.get();
 }

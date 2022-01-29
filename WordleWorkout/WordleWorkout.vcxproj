@@ -149,7 +149,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ConsoleIO.h" />
-    <ClInclude Include="wordleboard.h" />
+    <ClInclude Include="wordleDisplay.h" />
     <ClInclude Include="wordledictionary.h" />
     <ClInclude Include="WordleGame.h" />
   </ItemGroup>

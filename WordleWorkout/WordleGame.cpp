@@ -15,6 +15,8 @@ void WordleGame::reset() {
 	m_tries = 0;
 	m_is_solved = false;
 
+	m_charstatemap.clear();
+
 	// Initialise board
 	// Now we will have a 5 x 6 array board
 	// * 5x6 according to our const m_tries_count and m_word_size.
@@ -74,6 +76,18 @@ bool WordleGame::submit_next_guess(std::string aWord) {
 	
 	for (int i = 0; i < m_word_size; i++) {
 		m_board[m_tries][i].state = fnGetCharState(golden_word, m_board[m_tries][i].c, i);
+
+		// update global character state
+		// For each character, we only need to track:
+		// all except the 'none' state.
+		if (m_board[m_tries][i].state != WORDLECHARSTATE::none) {
+			
+			// only update if the state has changed
+			auto it = m_charstatemap.find(m_board[m_tries][i].c);
+			if (it == m_charstatemap.end()) {
+				m_charstatemap[m_board[m_tries][i].c] = m_board[m_tries][i].state;
+			}
+		}
 	}
 
 	// set the solved state
@@ -83,7 +97,7 @@ bool WordleGame::submit_next_guess(std::string aWord) {
 	}
 
 	// dump to screen
-#ifdef _DEBUG
+#ifdef false
 
 	auto funcGetStateStr = [](WORDLECHARSTATE s) {
 		char cc = ' ';
@@ -96,7 +110,7 @@ bool WordleGame::submit_next_guess(std::string aWord) {
 		return cc;
 	};
 
-	std::cout << "----------------------------\n";
+	"----------------------------\n";
 	std::cout << golden_word << "\n";
 	std::cout << "----------------------------\n";
 	for (int i = 0; i < m_word_size; i++) {
