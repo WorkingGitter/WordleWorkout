@@ -37,8 +37,10 @@ bool WordleGame::submit_next_guess(std::string aWord) {
 		return false;
 	}
 
-	// TODO: Check if this is a valid English word
-
+	// Check if this is a valid English word
+	if (!m_dicptr->is_a_word(aWord)) {
+		return false;
+	}
 
 	// Set word in the board array
 	for (int c = 0; c < m_word_size; c++) {

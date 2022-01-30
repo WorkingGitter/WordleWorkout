@@ -24,7 +24,7 @@ int main()
 	game.start_new_game();
 
 	// game loop
-	int c = 0; 
+	int c = 0;
 	while (!game.is_finished()) {
 
 		// draw layout
@@ -37,11 +37,8 @@ int main()
 			break;
 
 		// submit user guess
-		bool accepted = game.submit_next_guess(guess_string);
-
-		if (!accepted) {
-			// std::cerr << "Invalid word guess. Please try again";
-		}
+		if (!game.submit_next_guess(guess_string))
+			std::cout << '\a';
 	}
 
 	display.Draw(game);

@@ -18,8 +18,6 @@ public:
 	void Draw(const WordleGame& game) {
 
 		m_bg = BACKGROUND_BLACK;
-		/*if (game.is_solved())
-			m_bg = BACKGROUND_BLUE;*/
 
 		m_console.SetColourAttributes(m_bg | FOREGROUND_WHITE);
 		

@@ -53,7 +53,6 @@ class WordleGame
 {
 public:
 
-	// TODO: Initialise with the word dictionary manager
 	WordleGame(std::unique_ptr<WordleDic> dictionary);
 
 	/*!	@brief returns true, if the board is solved.
