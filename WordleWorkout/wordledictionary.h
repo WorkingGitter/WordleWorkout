@@ -13,9 +13,12 @@
 #include <vector>
 #include <iostream>
 #include <fstream>
+#include <sstream>
 #include <algorithm>
 #include <ctime>
 #include <cassert>
+#include "local_resource.h"
+#include "resource.h"
 
 /*!	@brief manages the collection of words used in the game
 */
@@ -23,7 +26,7 @@ class WordleDic
 {
 public:
 	WordleDic() {
-		loadWordTable();
+		loadWordTableFromResource();
 	}
 
 	/*!	@brief returns our key word of the day
@@ -87,8 +90,9 @@ protected:
 	*	This will populate our word lookup table with the
 	*	complete set of words available.
 	*	
+	*	@remarks TEST ONLY
 	*/
-	void loadWordTable() {
+	void loadTestWordTable() {
 		std::ifstream f(R"(C:\dev\WordleWorkout\WordleWorkout\words\wordlist_5letters.txt)");
 		if (f.is_open()) {
 
@@ -100,5 +104,38 @@ protected:
 
 			std::sort(m_wordlist.begin(), m_wordlist.end());
 		}
+	}
+
+	/*!	@brief loads the list of words to table
+	*
+	*	This will populate our word lookup table with the
+	*	complete set of available words.
+	*
+	*	@remarks Populates from the local resource
+	*/
+	void loadWordTableFromResource() {
+		std::string str;
+		LocalResource::GetResourceAsString(IDR_DICTIONARY, L"DICTIONARY", str);
+
+		// We are going to treat the string as an input stream.
+		// We can then re-used the same code as if loading from an external
+		// file.
+		std::string line;
+		std::istringstream ss(str);
+		while (std::getline(ss, line)) {
+
+			// Seems our line still contains the return character '\r'
+			// We can get rid of it programmatically by processing through 
+			// a stringstream.
+			std::stringstream ssline(line);
+			std::string str_trim;
+			ssline >> str_trim;
+
+			m_wordlist.push_back(str_trim);
+		}
+
+		// We will be doing binary searches on this vector, so very important
+		// to sort.
+		std::sort(m_wordlist.begin(), m_wordlist.end());
 	}
 };

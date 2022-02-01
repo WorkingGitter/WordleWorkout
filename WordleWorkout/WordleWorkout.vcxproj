@@ -149,9 +149,20 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ConsoleIO.h" />
+    <ClInclude Include="local_resource.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="wordleDisplay.h" />
     <ClInclude Include="wordledictionary.h" />
     <ClInclude Include="WordleGame.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="WordleWorkout.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin00001.bin" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="words\wordlist_5letters.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

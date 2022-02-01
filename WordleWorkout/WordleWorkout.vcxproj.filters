@@ -38,5 +38,24 @@
     <ClInclude Include="WordleGame.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="local_resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="WordleWorkout.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin00001.bin">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="words\wordlist_5letters.txt" />
   </ItemGroup>
 </Project>
