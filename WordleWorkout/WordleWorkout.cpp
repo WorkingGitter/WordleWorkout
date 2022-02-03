@@ -1,4 +1,4 @@
-/*!	
+﻿/*!	
 *	Worldle Workout
 */
 
@@ -15,6 +15,20 @@ int main()
 {
 	// create a new dictionary source
 	auto dic = std::make_unique<WordleDic>();
+
+#ifdef _DEBUG
+	::OutputDebugString(L"Word of the Day is: ");
+
+	auto wrd = dic->get_star_word();
+	std::wstring w{ wrd.begin(), wrd.end() };
+	::OutputDebugString(w.c_str());
+	::OutputDebugString(L"\n");
+
+	std::wstring s{ L"└─┘└─┘└─┘└─┘└─┘" };
+	std::wcout << s << std::endl;;
+
+#endif
+
 	WordleGame game(std::move(dic));
 
 	// UI
