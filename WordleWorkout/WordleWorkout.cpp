@@ -9,25 +9,31 @@
 #include "wordleDisplay.h"
 
 
-#define WW_VERSION  "0.1 Alpha"
+#define WW_VERSION  "0.2 Alpha"
 
+/*
+*  DISPLAY
+*  =======
+* 
+*  For this application, we are using some of the box characters.
+*  see: https://en.wikipedia.org/wiki/Box-drawing_character
+* 
+*  For this to work, we need to:
+*  1. use the std::wcout function. This requires using wide chars for all screen output.
+*  2. set the screen mode using the _setmode() function.
+*/
 int main()
 {
+	// Set the screen mode to support box characters
+	// https://stackoverflow.com/questions/4882031/displaying-extended-ascii-characters
+	auto result = _setmode(_fileno(stdout), _O_U8TEXT);
+	if (result == -1) {
+		std::cout << "Cannot set box drawing mode" << std::endl;
+		return -1;
+	}
+
 	// create a new dictionary source
 	auto dic = std::make_unique<WordleDic>();
-
-#ifdef _DEBUG
-	::OutputDebugString(L"Word of the Day is: ");
-
-	auto wrd = dic->get_star_word();
-	std::wstring w{ wrd.begin(), wrd.end() };
-	::OutputDebugString(w.c_str());
-	::OutputDebugString(L"\n");
-
-	std::wstring s{ L"└─┘└─┘└─┘└─┘└─┘" };
-	std::wcout << s << std::endl;;
-
-#endif
 
 	WordleGame game(std::move(dic));
 
@@ -45,14 +51,14 @@ int main()
 		display.Draw(game);
 
 		// input
-		std::string guess_string("");
-		std::getline(std::cin, guess_string);
-		if ((guess_string == "Q") || (guess_string == "q"))
+		std::wstring guess_string(L"");
+		std::getline(std::wcin, guess_string);
+		if ((guess_string == L"Q") || (guess_string == L"q"))
 			break;
 
 		// submit user guess
 		if (!game.submit_next_guess(guess_string))
-			std::cout << '\a';
+			std::wcout << L'\a';
 	}
 
 	display.Draw(game);

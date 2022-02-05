@@ -22,12 +22,12 @@ void WordleGame::reset() {
 	// * 5x6 according to our const m_tries_count and m_word_size.
 	m_board.clear();
 	for (int line = 0; line < m_tries_count; line++) {
-		std::vector<WORDLECHAR> w{ m_word_size, {' ', WORDLECHARSTATE::none} };
+		std::vector<WORDLECHAR> w{ m_word_size, {L' ', WORDLECHARSTATE::none} };
 		m_board.emplace_back(w);
 	}
 }
 
-bool WordleGame::submit_next_guess(std::string aWord) {
+bool WordleGame::submit_next_guess(std::wstring aWord) {
 	
 	if (is_finished())
 		return false;
@@ -48,18 +48,18 @@ bool WordleGame::submit_next_guess(std::string aWord) {
 	}
 
 	// 
-	std::string golden_word = m_dicptr->get_star_word();
+	auto golden_word = m_dicptr->get_star_word();
 	assert(golden_word.length() == m_word_size);
 
 	// convert string to upper case
-	std::for_each(golden_word.begin(), golden_word.end(), [](char& c) {
-		c = ::toupper(c);
+	std::for_each(golden_word.begin(), golden_word.end(), [](wchar_t& c) {
+		c = ::towupper(c);
 		});
 
 
 	// lamdba function
 	// Searches 'basestring' for the character 'ch' at location, 'loc'
-	auto fnGetCharState = [](const std::string& basestring, const char ch, const int loc) -> WORDLECHARSTATE {
+	auto fnGetCharState = [](const std::wstring& basestring, const wchar_t ch, const int loc) -> WORDLECHARSTATE {
 		
 		// test if we have a match
 		if (basestring[loc] == ch)
@@ -97,33 +97,6 @@ bool WordleGame::submit_next_guess(std::string aWord) {
 	for (int i = 0; i < m_word_size; i++) {
 		m_is_solved &= (m_board[m_tries][i].state == WORDLECHARSTATE::correct_position);
 	}
-
-	// dump to screen
-#ifdef false
-
-	auto funcGetStateStr = [](WORDLECHARSTATE s) {
-		char cc = ' ';
-		switch (s) {
-		case WORDLECHARSTATE::correct_position: cc = '+'; break;
-		case WORDLECHARSTATE::wrong: cc = 'x'; break;
-		case WORDLECHARSTATE::wrong_position: cc = '?'; break;
-		default: break;
-		}
-		return cc;
-	};
-
-	"----------------------------\n";
-	std::cout << golden_word << "\n";
-	std::cout << "----------------------------\n";
-	for (int i = 0; i < m_word_size; i++) {
-		std::cout << m_board[m_tries][i].c << "|";
-	}
-	std::cout << std::endl;
-	for (int i = 0; i < m_word_size; i++) {
-		std::cout << funcGetStateStr(m_board[m_tries][i].state) << "|";
-	}
-	std::cout << "\n----------------------------\n";
-#endif
 
 	m_tries++;
 

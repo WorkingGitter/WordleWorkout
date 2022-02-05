@@ -43,7 +43,7 @@ public:
 	*	Finally, use this random number as an index into our dictionary
 	*	vector.
 	*/
-	std::string get_star_word() {
+	std::wstring get_star_word() {
 
 		// get current time
 		// This returns the number of seconds since Jan 1st, 1970.
@@ -68,11 +68,11 @@ public:
 
 	/*!	@brief Checks if given word is in our dictionary
 	*/
-	bool is_a_word(std::string w) {
+	bool is_a_word(std::wstring w) {
 		
 		// convert string to upper case
-		std::for_each(w.begin(), w.end(), [](char& c) {
-				c = ::toupper(c);
+		std::for_each(w.begin(), w.end(), [](wchar_t& c) {
+				c = ::towupper(c);
 			});
 
 		return std::binary_search(m_wordlist.begin(), m_wordlist.end(), w);
@@ -82,7 +82,7 @@ protected:
 
 	/*!	@brief contains the **sorted** list of uppercase words
 	*/
-	std::vector<std::string> m_wordlist;
+	std::vector<std::wstring> m_wordlist;
 
 
 	/*!	@brief loads the list of words
@@ -93,10 +93,10 @@ protected:
 	*	@remarks TEST ONLY
 	*/
 	void loadTestWordTable() {
-		std::ifstream f(R"(C:\dev\WordleWorkout\WordleWorkout\words\wordlist_5letters.txt)");
+		std::wifstream f(R"(C:\dev\WordleWorkout\WordleWorkout\words\wordlist_5letters.txt)");
 		if (f.is_open()) {
 
-			std::string line;
+			std::wstring line;
 			while (std::getline(f, line)) {
 				m_wordlist.push_back(line);
 			}
@@ -121,17 +121,21 @@ protected:
 		// We can then re-used the same code as if loading from an external
 		// file.
 		std::string line;
-		std::istringstream ss(str);
+		std::istringstream ss { str };
 		while (std::getline(ss, line)) {
 
 			// Seems our line still contains the return character '\r'
 			// We can get rid of it programmatically by processing through 
 			// a stringstream.
-			std::stringstream ssline(line);
+			std::stringstream ssline{ line };
 			std::string str_trim;
 			ssline >> str_trim;
 
-			m_wordlist.push_back(str_trim);
+			// found this trick to convert string to wstring
+			//
+			std::wstring wstr{ str_trim.begin(), str_trim.end() };
+
+			m_wordlist.push_back(wstr);
 		}
 
 		// We will be doing binary searches on this vector, so very important

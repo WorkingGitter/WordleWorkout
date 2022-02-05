@@ -26,6 +26,9 @@ public:
         {
             DWORD dwLen = SizeofResource(hInst, hRsrc);
             HGLOBAL hdl = LoadResource(hInst, hRsrc);
+            if (hdl == nullptr)
+                return false;
+
             BYTE* pstr = (BYTE*)LockResource(hdl);
             if (nullptr != pstr)
             {

@@ -6,7 +6,7 @@
 #pragma once
 
 // case conversion
-#include <cctype>
+#include <cwctype>
 #include <string>
 #include <exception>
 #include <memory>
@@ -36,14 +36,14 @@ struct WORDLECHAR {
 	*		Maybe a class would be better to encapsulate some of this
 	*		process.
 	*/
-	WORDLECHAR(char ch, WORDLECHARSTATE wcs) 
+	WORDLECHAR(wchar_t ch, WORDLECHARSTATE wcs) 
 		: state(wcs) {
 
 		// Convert all input to uppercase
-		c = std::toupper(ch);
+		c = std::towupper(ch);
 	}
 
-	char c;
+	wchar_t c;
 	WORDLECHARSTATE state;
 };
 
@@ -86,10 +86,10 @@ public:
 	*	@return true, if word is valid and accepted (but may not be correct).
 	*			false, if the word is invalid for whatever reason.
 	*/
-	bool submit_next_guess(std::string aWord);
+	bool submit_next_guess(std::wstring aWord);
 
-	WORDLECHARSTATE get_state_of_character(const char c) const {
-		auto it = m_charstatemap.find(std::toupper(c));
+	WORDLECHARSTATE get_state_of_character(const wchar_t c) const {
+		auto it = m_charstatemap.find(std::towupper(c));
 		if (it == m_charstatemap.end())
 			return WORDLECHARSTATE::none;
 
@@ -123,7 +123,7 @@ protected:
 
 	/*!	@brief stores the character state for current game play
 	*/
-	std::map<char, WORDLECHARSTATE> m_charstatemap;
+	std::map<wchar_t, WORDLECHARSTATE> m_charstatemap;
 
 protected:
 
