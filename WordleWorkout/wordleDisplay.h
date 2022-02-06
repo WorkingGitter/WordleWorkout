@@ -131,8 +131,8 @@ protected:
 
 	void draw_title() {	
 		m_console.SetColourAttributes(m_bg | FOREGROUND_BRIGHTWHITE);
-		std::wcout << L" [WORDLE WORKOUT]\n";
-		std::wcout << L"  Word of the Day\n\n";
+		std::wcout << L" [WORDLE WORKOUT v0.3a]\n";
+		std::wcout << L"    Word of the Day\n\n";
 	}
 
 	void draw_keyboard(const WordleGame& game) {

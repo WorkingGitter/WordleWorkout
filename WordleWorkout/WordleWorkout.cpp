@@ -9,7 +9,7 @@
 #include "wordleDisplay.h"
 
 
-#define WW_VERSION  "0.2 Alpha"
+#define WW_VERSION  "0.3 Alpha"
 
 /*
 *  DISPLAY
@@ -53,8 +53,10 @@ int main()
 		// input
 		std::wstring guess_string(L"");
 		std::getline(std::wcin, guess_string);
-		if ((guess_string == L"Q") || (guess_string == L"q"))
+		if ((guess_string == L"Q") || (guess_string == L"q")) {
+			game.quit_game();
 			break;
+		}
 
 		// submit user guess
 		if (!game.submit_next_guess(guess_string))

@@ -74,6 +74,12 @@ public:
 		return is_solved();
 	}
 
+	/*!	@brief closes the game
+	*/
+	void quit_game() {
+		m_tries = m_tries_count;
+	}
+
 	/*!	@brief resets the game state with a new word
 	*/
 	void start_new_game() {
