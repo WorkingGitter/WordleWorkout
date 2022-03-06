@@ -9,7 +9,7 @@
 #include "wordleDisplay.h"
 
 
-#define WW_VERSION  "0.3 Alpha"
+#define WW_VERSION  "0.4 Alpha"
 
 /*
 *  DISPLAY

@@ -72,7 +72,7 @@ public:
 		
 		// convert string to upper case
 		std::for_each(w.begin(), w.end(), [](wchar_t& c) {
-				c = ::towupper(c);
+				c = ::towlower(c);
 			});
 
 		return std::binary_search(m_wordlist.begin(), m_wordlist.end(), w);
