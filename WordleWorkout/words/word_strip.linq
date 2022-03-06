@@ -6,7 +6,7 @@
 //
 //
 
-string inpath = @"C:\Users\richa\Downloads\british\brit-a-z.txt";
+string inpath = @"C:\temp\brit-a-z.txt";
 List<string> mylist = new List<string>();
 
 foreach(string line in System.IO.File.ReadLines(inpath))
